@@ -1,10 +1,22 @@
+local wall = require('wall')
+
+-- lua uses curly braces for
+-- both array and hashtables
+local entities = { }
+
 local player = {
     x = 100, 
     y = 100,
     speed = 100,
 }
 
+local i = wall(10, 100, 10, 100)
+
+table.insert(entities, i)
+table.insert(entities, player)
+
 function player:draw()
+    love.graphics.setColor(255, 255, 255)
     love.graphics.rectangle('fill', self.x, self.y, 20, 20)
 end
 
@@ -41,7 +53,13 @@ function player:update(dt)
 end
 
 function love.draw()
-    player:draw()
+    -- ipairs is a function in lua
+    -- a constructor for an iterator
+    -- because array tables are not
+    -- iteratable by default
+    for idx, entity in ipairs(entities) do
+        entity:draw()
+    end
 end
 
 -- dt == the amount of time (in seconds)
@@ -49,5 +67,7 @@ end
 -- better to base speed of game on dt
 -- instead of depending on framerate
 function love.update(dt)
-    player:update(dt)
+    for idx, entity in ipairs(entities) do
+        entity:update(dt)
+    end
 end
