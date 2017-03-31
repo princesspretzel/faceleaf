@@ -55,7 +55,6 @@ function love.draw()
     for idx, entity in ipairs(entities) do
         entity:draw()
     end
-    love.graphics.print(touching and "touching" or "nope", 10, 10)
 end
 
 -- dt == the amount of time (in seconds)

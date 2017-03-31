@@ -15,15 +15,14 @@ function Player(x, y)
 end
 
 function playerClass:isOutOfBounds()
-	local width, height = love.window.getDimensions()
-
-	if self.x == width or 0 then
-		return true
-	end
-	if self.h == height or 0 then
-		return true
-	end
-	return false
+	local width, height = love.graphics.getDimensions()
+	local window = {
+		x = 0,
+		y = 0,
+		w = width,
+		h = height,
+	}
+	return not isContained(window, self)
 end
 
 function playerClass:isTouching(entities)
@@ -76,7 +75,7 @@ function playerClass:update(dt)
         self.x = self.x + dx
         self.y = self.y + dy
         touching = false
-        if self:isTouching(entities) then
+        if self:isTouching(entities) or self:isOutOfBounds() then
             touching = true
             self.x = self.x - dx
             self.y = self.y - dy
