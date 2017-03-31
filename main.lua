@@ -1,5 +1,6 @@
 local Wall = require('wall')
 local Player = require('player')
+local MakeMap = require('map')
 
 entities = { }
 -- lua uses curly braces for
@@ -8,7 +9,7 @@ local start_x = 100
 local start_y = 100
 local touching = false
 local contained = false
-local player = Player(10, 10)
+local player = Player(40, 40)
 -- x, y, w, h
 local i = Wall(200, 100, 200, 100)
 local ii = Wall(400, 400, 10, 10)
@@ -19,6 +20,9 @@ table.insert(entities, ii)
 table.insert(entities, iii)
 table.insert(entities, player)
 
+for idx, x in ipairs(MakeMap()) do
+    table.insert(entities, x)
+end
 -- is b contained within a
 function isContained(a, b)
     if b.x < a.x then

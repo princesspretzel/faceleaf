@@ -8,6 +8,7 @@ function Player(x, y)
 		w = 60,
 		h = 35,
 		speed = 100,
+		image = love.graphics.newImage('/images/Leaf_Calm.png')
 	}
 
 	setmetatable(instance, playerClass)
@@ -39,8 +40,7 @@ end
 
 function playerClass:draw()
     love.graphics.setColor(255, 255, 255)
-    leaf = love.graphics.newImage('/images/Leaf_Calm.png')
-    love.graphics.draw(leaf, self.x, self.y)
+    love.graphics.draw(self.image, self.x, self.y)
     love.graphics.print(touching and "touching" or "nope", 10, 10)
     -- love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
 end
