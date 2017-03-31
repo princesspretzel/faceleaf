@@ -1,26 +1,40 @@
-local wall = require('wall')
+local Wall = require('wall')
+local Player = require('player')
 
+entities = { }
 -- lua uses curly braces for
 -- both array and hashtables
-local entities = { }
+local start_x = 100
+local start_y = 100
 local touching = false
-local player = {
-    x = 100, 
-    y = 100,
-    w = 30,
-    h = 30,
-    speed = 100,
-}
-
+local contained = false
+local player = Player(10, 10)
 -- x, y, w, h
-local i = wall(200, 100, 200, 100)
-local ii = wall(400, 400, 10, 10)
-local iii = wall(600, 200, 100, 70)
+local i = Wall(200, 100, 200, 100)
+local ii = Wall(400, 400, 10, 10)
+local iii = Wall(600, 200, 100, 70)
 
 table.insert(entities, i)
 table.insert(entities, ii)
 table.insert(entities, iii)
 table.insert(entities, player)
+
+-- is b contained within a
+function isContained(a, b)
+    if b.x < a.x then
+        return false
+    end 
+    if b.y < a.y then
+        return false
+    end
+    if (b.x + b.w) > (a.x + a.w) then
+        return false
+    end 
+    if (b.y + b.h) > (a.y + a.h) then
+        return false
+    end
+    return true
+end
 
 function isTouching(a, b)   
     if (a.x > (b.x + b.w)) or (b.x > (a.x + a.w)) then
@@ -31,61 +45,6 @@ function isTouching(a, b)
     end
 
     return true
-end
-
-function player:isTouching(entities)
-    for idx, e in ipairs(entities) do
-        if e ~= self then
-            touching = isTouching(self, e)
-            if touching then
-                return true
-            end
-        end
-    end
-    return false
-end
-
-function player:draw()
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
-end
-
-function player:update(dt)
-    -- every frame the key is down for,
-    -- this is called -- so 60fps
-    local dx, dy = 0, 0    
-
-    if love.keyboard.isDown('left') then
-        dx = -1
-    end
-    if love.keyboard.isDown('right') then
-        dx = 1
-    end
-    if love.keyboard.isDown('down') then
-        dy = 1
-    end
-    if love.keyboard.isDown('up') then
-        dy = -1
-    end
-
-    -- normalize diagonal vector
-    -- and don't run it unless
-    -- keys are actually being
-    -- pressed
-    if dx ~= 0 or dy ~= 0 then
-        local length = (dx^2+dy^2)^.5
-        dx = dx/length * self.speed*dt
-        dy = dy/length * self.speed*dt
-
-        self.x = self.x + dx
-        self.y = self.y + dy
-        touching = false
-        if self:isTouching(entities) then
-            touching = true
-            -- self.x = self.x - dx
-            -- self.y = self.y - dy
-        end
-    end
 end
 
 function love.draw()

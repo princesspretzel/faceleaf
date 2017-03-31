@@ -13,7 +13,7 @@ function wallClass:update(dt)
 end
 
 -- constructor
-function wall(x, y, w, h)
+function Wall(x, y, w, h)
     local instance = {
         x = x,
         y = y,
@@ -30,4 +30,4 @@ function wall(x, y, w, h)
 end
 
 -- this makes the module return the function
-return wall
+return Wall
