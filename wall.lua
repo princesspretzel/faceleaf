@@ -9,7 +9,7 @@ function wallClass:draw()
 end
 
 -- building a class system from scratch
-function wallClass:update(dt)    
+function wallClass:update(dt)
 end
 
 -- constructor

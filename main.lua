@@ -2,28 +2,21 @@ local Wall = require('wall')
 local Player = require('player')
 local MakeMap = require('map')
 
-entities = { }
 -- lua uses curly braces for
--- both array and hashtables
-local start_x = 100
-local start_y = 100
+-- both arrays and hashtables
+entities = { }
 local touching = false
 local contained = false
-local player = Player(40, 40)
--- x, y, w, h
-local i = Wall(200, 100, 200, 100)
-local ii = Wall(400, 400, 10, 10)
-local iii = Wall(600, 200, 100, 70)
+local player = Player(50, 50)
 
-table.insert(entities, i)
-table.insert(entities, ii)
-table.insert(entities, iii)
+-- push player and walls into
+-- entities
 table.insert(entities, player)
-
 for idx, x in ipairs(MakeMap()) do
     table.insert(entities, x)
 end
--- is b contained within a
+
+-- is b contained within a?
 function isContained(a, b)
     if b.x < a.x then
         return false
@@ -40,6 +33,7 @@ function isContained(a, b)
     return true
 end
 
+-- are a and b touching?
 function isTouching(a, b)   
     if (a.x > (b.x + b.w)) or (b.x > (a.x + a.w)) then
         return false
@@ -52,7 +46,7 @@ function isTouching(a, b)
 end
 
 function love.draw()
-    -- ipairs is a function in lua
+    -- ipairs is a function in lua,
     -- a constructor for an iterator
     -- because array tables are not
     -- iteratable by default
