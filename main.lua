@@ -6,13 +6,14 @@ local MakeMap = require('map')
 -- both arrays and hashtables
 entities = { }
 local touching = false
+local errorMargin = 10
 local contained = false
 local player = Player(50, 50)
 
 -- push player and walls into
 -- entities
 table.insert(entities, player)
-for idx, x in ipairs(MakeMap()) do
+for idx, x in ipairs(MakeMap) do
     table.insert(entities, x)
 end
 
@@ -54,7 +55,7 @@ function love.draw()
         entity:draw()
     end
 end
-
+ 
 -- dt == the amount of time (in seconds)
 -- elapsed since the last frame 
 -- better to base speed of game on dt

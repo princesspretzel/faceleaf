@@ -8,10 +8,6 @@ function wallClass:draw()
     love.graphics.rectangle('fill', self.x, self.y, self.w, self.h)
 end
 
--- building a class system from scratch
-function wallClass:update(dt)
-end
-
 -- constructor
 function Wall(x, y, w, h)
     local instance = {
