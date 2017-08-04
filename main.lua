@@ -1,10 +1,10 @@
 local Wall = require('wall')
 local Player = require('player')
-local MakeMap = require('map')
+local Map = require('map')
 
 -- lua uses curly braces for
 -- both arrays and hashtables
-local entities = { }
+entities = { }
 local touching = false
 local errorMargin = 10
 local contained = false
@@ -15,7 +15,7 @@ local map = Map(0, 0)
 -- push player and walls into
 -- entities
 table.insert(entities, player)
-for idx, x in ipairs(MakeMap) do
+for idx, x in ipairs(map.cells) do
   table.insert(entities, x)
 end
 

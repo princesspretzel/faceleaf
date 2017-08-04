@@ -11,8 +11,17 @@ function Cell(x, y)
   }
 end
 
+-- -- helper to tell if a is between
+-- -- a(lower bound) and b(upper bound)
+-- function cellClass:isBetween(a, b)
+--   if ((self.x >= a) and (self.x a <= b)) then
+--     return true
+--   end
+--   return false
+-- end
+
 function cellClass:draw()
-  love.graphics.setColor(255, 255, 255)
+  love.graphics.setColor(255, 0, 0)
   love.graphics.rectangle(self.x, self.y, self.w, self.h)
 end
 
